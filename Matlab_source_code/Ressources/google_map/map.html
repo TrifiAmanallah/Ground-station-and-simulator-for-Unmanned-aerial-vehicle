@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<title>Simple Polylines</title>
+<style> 
+html, body, #map-canvas {
+height: 100%;
+margin: 0px;
+padding: 0px
+}
+ </style>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+<script>
+var flightPath;
+function initialize() {
+var mapOptions = {
+zoom: 20,
+center: new google.maps.LatLng( 36.815543,10.063206  ),
+mapTypeId: google.maps.MapTypeId.SATELLITE
+};
+var map = new google.maps.Map(document.getElementById('map-canvas'),
+mapOptions);
+var flightPlanCoordinates = [
+new google.maps.LatLng( 36.815543,10.063206),
+new google.maps.LatLng( 36.816087,10.063933),
+new google.maps.LatLng( 36.815910,10.064419),
+new google.maps.LatLng( 36.815597,10.064405),
+];
+ var flightPathSymbol = {
+path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+scale: 4,
+strokeColor: '#b23aee'
+ };
+///drawing flight Plan
+ flightPath = new google.maps.Polyline({
+path: flightPlanCoordinates,
+icons: [{
+ icon: flightPathSymbol,
+offset: '100%'
+  }],
+geodesic: true,
+strokeColor: '#ff1493',
+strokeOpacity: 1.0,
+strokeWeight: 2
+});
+flightPath.setMap(map);
+ animateCircle();
+///Markers:
+var startLatlng = new google.maps.LatLng( 36.815543,10.063206  );
+var image = 'start.png';
+var marker = new google.maps.Marker({
+position: startLatlng,
+map: map,
+icon: image,
+title: 'Start point'
+  });
+var finishLatlng = new google.maps.LatLng( 36.815597,10.064405 );
+var image = 'finish.png';
+var marker = new google.maps.Marker({
+position: finishLatlng,
+map: map,
+icon: image,
+title: 'finish point'
+  });
+}
+///Line animation
+function animateCircle() {
+ var count = 0;
+window.setInterval(function() {
+count = (count + 1) % 200;
+ var icons = flightPath.get('icons');
+icons[0].offset = (count / 2) + '%';
+flightPath.set('icons', icons);
+ }, 20);}
+google.maps.event.addDomListener(window,'load', initialize);
+</script>
+</head>
+<body>
+ <div id="map-canvas"></div>
+ </body>
+</html>
