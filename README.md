@@ -1,5 +1,6 @@
 # Ground-station-and-simulator-for-Unmanned-aerial-vehicle
 Developped by: tn.linkedin.com/in/Trifi
+To be able to use the simulator, donwload and install Flight Gear: http://www.flightgear.org/download/
 
 A matlab based ground station for aerial vehicle, The program allows:
  - Real time data acquisition, display and analyses of raw data from GPS, Gyroscope, magnetometer, altitude, temperature, pressure and speed      controller sensors.
